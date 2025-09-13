@@ -1,6 +1,6 @@
 ﻿class CalculatorProgram
 { 
-    static double ApplyBinaryOperation(double a, string op, double b)
+    static double ApplyBinaryOperation(double a, string op, double b) // Метод выполнения бинарных операций
     {
         switch (op)
         {
@@ -8,7 +8,7 @@
             case "-": return a - b;
             case "*": return a * b;
             case "/":
-                if (b == 0)
+                if (b == 0) // ограничение на ноль
                 {
                     Console.WriteLine("На ноль делить нельзя");
                     return a;
@@ -22,10 +22,10 @@
     
     static void Main()
     {
-        double currentValue = 0;
-        double memory = 0;
-        bool isNewInput = true;
-        string pendingOperation = null;
+        double currentValue = 0; // текущее значение калькулятора
+        double memory = 0; // значение памяти
+        bool isNewInput = true; // флаг для ввода второго числа
+        string pendingOperation = null; // хранилище бинарной операции
         Console.WriteLine("<< Программа калькулятор >>");
         Console.WriteLine("Поддерживаемые операции: +, -, *, /, %, ^, 1/x, x^2, sqrt, M+, M-, MR, MC. Напишите exit для выхода");
         Console.WriteLine("Перед вводом один раз нажмите Enter");
@@ -34,7 +34,7 @@
         while (true)
         {
             string input;
-            if (pendingOperation == null)
+            if (pendingOperation == null) 
             {
                 Console.Write("Введите число или операцию: ");
             }
@@ -47,15 +47,15 @@
             {
                 break;
             }
-            if (double.TryParse(input, out double number))
+            if (double.TryParse(input, out double number)) // конвертация инпута в double
             {
                 if (pendingOperation != null)
                 {
-                    currentValue = ApplyBinaryOperation(currentValue, pendingOperation, number);
+                    currentValue = ApplyBinaryOperation(currentValue, pendingOperation, number); //если бинарная операция ожидаема вызываем метод
                     pendingOperation = null;
                     Console.WriteLine($"Результат: {currentValue}");
                 }
-                else
+                else //если нет просто сохраняем число
                 {
                     currentValue = number;
                     Console.WriteLine($"Текущее значение: {currentValue}");
@@ -63,7 +63,7 @@
             }
             else
             {
-                switch (input)
+                switch (input) // если введено не число, обрабатываем как операцию
                 {
                     case "+":
                     case "-":
